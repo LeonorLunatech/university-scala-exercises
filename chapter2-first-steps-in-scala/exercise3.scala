@@ -3,3 +3,9 @@
 // previous program
 // This eliminates the need for an iterator variable and also the chance of
 // an off-by-one error that could cause an out of bounds array access.
+
+val range = Range(1,11)
+var sum = 0
+range.foreach(a => sum += a )
+
+println(sum)
