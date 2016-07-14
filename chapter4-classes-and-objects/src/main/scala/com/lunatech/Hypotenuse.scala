@@ -16,7 +16,7 @@
 
 package com.lunatech
 
-import scala.util.Try
+import scala.util.{ Failure, Success, Try }
 
 object Hypotenuse extends App {
   if (args.length != 2) {
@@ -25,12 +25,16 @@ object Hypotenuse extends App {
     val a = Try(Integer.parseInt(args(0)))
     val b = Try(Integer.parseInt(args(1)))
 
-    if (a.isSuccess && b.isSuccess) {
-      val hypotenuse = calculateHypotenuse(a.get, b.get)
-      println(hypotenuse)
-    } else
-      println("Numbers only please!")
+    val hypotenuse: Try[Int] =
+      for {
+        first <- a
+        second <- b
+      } yield calculateHypotenuse(first, second)
 
+    hypotenuse match {
+      case Success(h) => println(h)
+      case Failure(e) => println("Numbers only please!")
+    }
   }
 
   def calculateHypotenuse(a: Int, b: Int): Int = {
