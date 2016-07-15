@@ -26,7 +26,7 @@ object Exercises {
  * with the `getBytes` method.)
  */
     def add(s: String):FunctionalChecksumAccumulator =
-    new FunctionalChecksumAccumulator((sum +: s.getBytes).foldLeft(0)(_+_).asInstanceOf[Byte])
+    new FunctionalChecksumAccumulator((sum +: s.getBytes).sum)
 
     def checksum(): Int = ~(sum & 0xFF) + 1
   }
@@ -37,6 +37,6 @@ object Exercises {
    * println("Everything is awesome!".checksum)
    * 
    */
-implicit def stringToFunctionalChecksumAccumulator(s:String) = new FunctionalChecksumAccumulator(s.getBytes.foldLeft(0)(_+_).asInstanceOf[Byte])
+implicit def stringToFunctionalChecksumAccumulator(s:String) = new FunctionalChecksumAccumulator(s.getBytes.sum)
 }
 
